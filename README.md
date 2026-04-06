@@ -10,9 +10,10 @@ Ejecutamos el comando para instalar Tailwind v4 y su motor de optimización para
 Bash
 ```
 npm install tailwindcss @tailwindcss/vite
+```
+
 2. Configuración del Plugin en Vite
 Debemos avisarle a Vite que use el motor de Tailwind. Para esto, abre el archivo vite.config.ts y modifícalo de la siguiente manera:
-```
 
 TypeScript
 ```
