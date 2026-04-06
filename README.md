@@ -1,73 +1,51 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Rama de instalacion
 
-Currently, two official plugins are available:
+1. Requisitos Previos
+Antes de comenzar, asegúrate de tener instalada la versión de Node.js recomendada para este curso.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Node.js: Versión 22.x (LTS recomendada).
 
-## React Compiler
+Gestor de paquetes: npm (viene incluido con Node).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Editor: Visual Studio Code.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. Creación del Proyecto con Vite
+Vite es una herramienta de construcción (build tool) que nos permite trabajar de forma extremadamente rápida. A diferencia de los métodos antiguos, Vite solo carga lo que necesitas en cada momento.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Ejecuta el siguiente comando en tu terminal para iniciar el asistente:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Bash
+```
+npm create vite@latest bitacora-viaje-react -- --template react-ts
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Explicación de los flags:
+bitacora-viaje-react: Es el nombre de la carpeta de nuestro proyecto.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+--template react-ts: Le indica a Vite que queremos configurar el entorno específicamente para React utilizando TypeScript.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3. Instalación de Dependencias
+Una vez creada la estructura, debemos movernos a la carpeta e instalar los módulos necesarios:
+
+Bash
 ```
+# Entrar a la carpeta
+cd bitacora-viaje-react
+
+# Instalar dependencias iniciales
+npm install
+```
+
+4. Ejecución del Entorno de Desarrollo
+Para ver nuestro proyecto en vivo y aprovechar el Hot Module Replacement (que actualiza la vista apenas guardamos un cambio), ejecutamos:
+
+Bash
+```
+npm run dev
+
+```
+Esto nos devolverá una URL local (usualmente http://localhost:5173). ¡Ya estamos listos para empezar a codear!
