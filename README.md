@@ -1,6 +1,6 @@
-## React + TypeScript + Vite
+# React + TypeScript + Vite
 
-# Rama de instalacion
+## Rama de instalacion
 
 1. Requisitos Previos
 Antes de comenzar, asegúrate de tener instalada la versión de Node.js recomendada para este curso.
