@@ -2,6 +2,9 @@ import './App.css'
 import { useState, useEffect } from 'react';
 import type { CalcResult, Load, Trip } from './models/types'
 import { calculateStatics } from './utils/calculations'
+import { ConsumptionForm } from './components/ConsumptionForm';
+import { TableResults } from './components/TableResults';
+
 
 function App() {
   // variable reactiva y parte del estado: trip
@@ -69,7 +72,7 @@ function App() {
             Registro de Carga
           </h1>
 
-          <form onSubmit={addLoad} className="flex flex-col gap-4 justify-center">
+          <form className="flex flex-col gap-4 justify-center">
             <div className="mb-1 p-2 bg-green-100 rounded-lg border border-green-100">
               <label className="block text-sm font-bold text-green-900">KM Inicial del Vehículo</label>
               <input
@@ -84,8 +87,8 @@ function App() {
                 // Se bloquea si ya hay cargas registradas (regla de negocio)
                 disabled={trip.loads.length > 0}
                 className={`w-full p-2 border rounded-md outline-none transition-all ${trip.loads.length > 0
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
-                    : 'bg-white border-green-300 focus:ring-2 focus:ring-green-500'
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
+                  : 'bg-white border-green-300 focus:ring-2 focus:ring-green-500'
                   }`}
               />
               {trip.loads.length > 0 && (
@@ -94,86 +97,23 @@ function App() {
                 </p>
               )}
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Kilometraje Actual</label>
-              <input
-                type="number"
-                value={kmInput}
-                onChange={(e) => setKmInput(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 outline-none"
-                placeholder="Ej: 10450"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Litros Cargados</label>
-              <input
-                type="number"
-                value={litersInput}
-                onChange={(e) => setLitersInput(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 outline-none"
-                placeholder="Ej: 35"
-                required
-              />
-            </div>
-            <button type="submit" className="bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-              Agregar Carga
-            </button>
           </form>
-          <div id="resultado" className="mt-8 text-center min-h-12.5 transition-all duration-500">
-          </div>
+
+          <ConsumptionForm
+            onAddLoad={addLoad}
+            kmInput={kmInput}
+            setKmInput={setKmInput}
+            litersInput={litersInput}
+            setLitersInput={setLitersInput}
+          />
         </div>
 
         <div className="w-1/2 bg-white p-6 rounded-2xl shadow flex flex-col">
-
-          <h2 className="text-xl font-semibold text-gray-700 mb-1">
-            Historial de Cargas
-          </h2>
-
-          {/* Mapeo de cargas: Reemplaza al renderTabla() manual */}
-          <div className="flex-1 overflow-y-auto">
-            {/* PRIMERA INYECCION DE JS: Insertamos los km iniciales */}
-            <label className="w-full flex flex-row align-center justify-start mb-1">Movil Inicia con: <span className="px-4 font-bold">{trip.initKm?.toFixed(2)} km</span></label>
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-gray-100 text-gray-600">
-                  <th className="p-2">KM</th>
-                  <th className="p-2">Litros</th>
-                </tr>
-              </thead>
-              <tbody id="tabla-historial">
-
-                {/* SEGUNDA INYECCION DE JS: utilizamos la funcion de array ".map" y retornamos elementos HTML para cada uno de los items en el array de cargas*/}
-                {trip.loads.map((load, index) => (
-
-                  <tr key={index} className="border-b">
-                    <td className="p-2 text-gray-600">{load.km} km</td>
-                    <td className="p-2 text-gray-600">{load.liters} L</td>
-                  </tr>
-
-                ))}
-
-              </tbody>
-            </table>
-          </div>
-
-          {/* Sección de Resultados */}
-          {results ? (
-            <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-xl animate-in fade-in duration-500">
-              <p className="text-green-800"><strong>Distancia total:</strong> {results.totalDistance} km</p>
-              <p className="text-green-800"><strong>Consumo promedio:</strong> {results.averageConsumption.toFixed(2)} L/100km</p>
-            </div>
-          ) : (
-            <p className="mt-6 text-center text-gray-400 italic">Completa los datos para ver el cálculo</p>
-          )}
-          <div className="mt-4 flex gap-2">
-            {/* <button id="btn-calcular" type="button" className="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-              Calcular Viaje
-            </button> */}
-            <button id="btn-reset" onClick={resetTrip} type="button" className="flex-1 bg-gray-300 py-2 rounded-lg hover:bg-gray-400 transition">
-              Limpiar
-            </button>
-          </div>
+          <TableResults
+            trip={trip}
+            results={results}
+            resetTrip={resetTrip}
+          />
         </div>
       </div>
     </div>
